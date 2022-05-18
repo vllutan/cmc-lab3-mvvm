@@ -17,10 +17,6 @@
             </StackPanel>
         </ControlTemplate>
     </Window.Resources>
-    <!--<Window.CommandBindings>
-        <CommandBinding Command="local:Cmd.MeasuredData" CanExecute="MD_CanExecute" Executed="MD_Executed"/>
-        <CommandBinding Command="local:Cmd.Splines" CanExecute="Spl_CanExecute" Executed="Spl_Executed" />
-    </Window.CommandBindings>-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -63,7 +59,7 @@
         <TextBox Name="right_irreg" HorizontalAlignment="Left" Margin="198,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"
                   Validation.ErrorTemplate="{StaticResource validationFailed}">
             <TextBox.Text>
-                <Binding Path="Segment1"> <!--UpdateSourceTrigger="PropertyChanged" >-->
+                <Binding Path="Segment1" UpdateSourceTrigger="PropertyChanged" >
                     <Binding.ValidationRules>
                         <DataErrorValidationRule />
                     </Binding.ValidationRules>
@@ -98,9 +94,9 @@
         </TextBox>
         <Label Grid.RowSpan="2" Content="1st derivative on ends: [" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top"/>
         <TextBox Grid.RowSpan="2" Name="der_left" HorizontalAlignment="Left" Margin="143,317,0,0" TextWrapping="Wrap" Text="{Binding Derivative[0], UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="60"/>
+
+        <TextBox Grid.RowSpan="2" Name="der_right" Margin="215,317,0,0" TextWrapping="Wrap" Text="{Binding Derivative[1], UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
         
-        <TextBox Grid.RowSpan="2" Name="der_right" Margin="215,317,0,0" TextWrapping="Wrap" Text="{Binding Derivative[1]}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
-        <!--, UpdateSourceTrigger=PropertyChanged-->
         <Label Grid.RowSpan="2" Content=" , " HorizontalAlignment="Left" Margin="199,315,0,0" VerticalAlignment="Top"/>
         <Label Grid.RowSpan="2" Content="]" HorizontalAlignment="Left" Margin="280,310,0,0" VerticalAlignment="Top"/>
         <Label Grid.RowSpan="2" Content="Integral: [" HorizontalAlignment="Left" Margin="10,345,0,0" VerticalAlignment="Top"/>
@@ -115,7 +111,7 @@
         </TextBox>
         <TextBox Grid.RowSpan="2" Name="int_right" HorizontalAlignment="Left" Margin="166,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Validation.ErrorTemplate="{StaticResource validationFailed}">
             <TextBox.Text>
-                <Binding Path="Int_limits1" > <!--UpdateSourceTrigger="PropertyChanged" >-->
+                <Binding Path="Int_limits1" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <DataErrorValidationRule />
                     </Binding.ValidationRules>
@@ -145,9 +141,6 @@
         </lvc:CartesianChart>
         <Button Name="clear" Grid.Column="2" Grid.Row="2" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                 Command="{Binding ClearChart}" Margin="0,40,0,30"/>
-        <!--RenderTransformOrigin="-7.853,0.7"-->
-
-
     </Grid>
 </Window>
 

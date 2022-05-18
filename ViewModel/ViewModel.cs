@@ -1,69 +1,12 @@
-﻿using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Model;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class RelayCommand : ICommand
-    {
-        private readonly Action<object> execute;
-        private readonly Func<object, bool> canExecute;
-
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
-        {
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public bool CanExecute(object parameter) => canExecute == null ? true : canExecute(parameter);
-
-        public void Execute(object parameter) => execute?.Invoke(parameter);
-    }
-    public class ChartData
-    {
-        public SeriesCollection sc { get; set; }
-        public Func<double, string> Formatter { get; set; }
-        public ChartData()
-        {
-            sc = new();
-            Formatter = value => value.ToString("F3");
-        }
-
-        public void MakePlot(double[] grid, double[] data, int mode, string title)
-        {
-            try
-            {
-                ChartValues<ObservablePoint> values = new ChartValues<ObservablePoint>();
-                for (int i = 0; i < data.Length; i++)
-                {
-                    values.Add(new(grid[i], data[i]));
-                }
-                if (mode == 1) sc.Add(new LineSeries { Title = title, Values = values, PointGeometry = null });
-                else sc.Add(new ScatterSeries { Title = title, Values = values, PointGeometry = DefaultGeometries.Circle });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-        public void Clear()
-        {
-            sc.Clear();
-        }
-    }
     public class ViewData : INotifyPropertyChanged, IDataErrorInfo
     {
         public SplinesData splData { get; set; } = new();
