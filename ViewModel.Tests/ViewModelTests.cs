@@ -75,25 +75,70 @@ namespace ViewModel.Tests
         }
 
         [Fact]
-        public void TestWrongLimits()
+        public void TestError1()
         {
             ViewData vd = new();
             vd.Irreg_Len = 1;
             Assert.False(vd.IsCorrectMD());
             Assert.False(vd.SetMeasuredData.CanExecute(1));
-            vd.Irreg_Len = 4;
-            vd.Segment0 = 0;
-            vd.Segment1 = 1;
-            vd.Int_limits0 = -2;
-            vd.Int_limits1 = -3;
-            Assert.False(vd.IsCorrectMD());
-            Assert.False(vd.SetMeasuredData.CanExecute(1));
+        }
 
+        [Fact]
+        public void TestError2()
+        {
+            ViewData vd = new();
             vd = new();
             vd.SetMeasuredData.Execute(1);
             vd.Reg_Len = 1;
             Assert.False(vd.IsCorrectSP());
             Assert.False(vd.SetSpline.CanExecute(1));
+        }
+
+        [Fact]
+        public void TestError3()
+        {
+            ViewData vd = new();
+            vd.Segment1 = 1;
+            vd.Int_limits0 = -2;
+            vd.Int_limits1 = 1;
+            Assert.False(vd.IsCorrectMD());
+            Assert.False(vd.SetMeasuredData.CanExecute(1));
+        }
+
+        [Fact]
+        public void TestError4()
+        {
+            ViewData vd = new();
+            vd.Segment0 = 0;
+            vd.Segment1 = 5;
+            vd.Int_limits0 = 1;
+            vd.Int_limits1 = 10;
+            Assert.False(vd.IsCorrectMD());
+            Assert.False(vd.SetMeasuredData.CanExecute(1));
+        }
+
+        [Fact]
+        public void TestError5()
+        {
+            ViewData vd = new();
+            vd.Segment0 = 0;
+            vd.Segment1 = 5;
+            vd.Int_limits0 = 5;
+            vd.Int_limits1 = 5;
+            Assert.False(vd.IsCorrectMD());
+            Assert.False(vd.SetMeasuredData.CanExecute(1));
+        }
+
+        [Fact]
+        public void TestError6()
+        {
+            ViewData vd = new();
+            vd.Segment0 = 10;
+            vd.Segment1 = 5;
+            vd.Int_limits0 = 5;
+            vd.Int_limits1 = 10;
+            Assert.False(vd.IsCorrectMD());
+            Assert.False(vd.SetMeasuredData.CanExecute(1));
         }
     }
 }
